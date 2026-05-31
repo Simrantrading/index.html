@@ -103,38 +103,7 @@ iframe{
 
 <h2 style="margin-top:30px;">AI Signal</h2>
 
-<div id="signalArea">
-
-<p><b>Symbol:</b> NVDA</p>
-
-<p class="signal-buy">
-BUY
-</p>
-
-<p>
-Confidence: 78%
-</p>
-
-<p>
-Trend: Bullish
-</p>
-
-<p>
-Entry Zone:
-$140 - $145
-</p>
-
-<p>
-Stop Loss:
-$135
-</p>
-
-<p>
-Target:
-$155
-</p>
-
-</div>
+<div id="signalArea"></div>
 
 </div>
 
@@ -142,11 +111,7 @@ $155
 
 <div class="panel">
 
-<h2 id="chartTitle">
-NVDA Chart
-</h2>
-
-<div id="chartContainer">
+<h2 id="chartTitle">NVDA Chart</h2>
 
 <iframe
 id="tvframe"
@@ -155,6 +120,23 @@ src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:NVDA&interval=15&theme
 
 </div>
 
+<div class="panel" style="margin-top:15px;">
+
+<h2>Top Opportunities</h2>
+
+<table>
+<tr>
+<th>Stock</th>
+<th>Score</th>
+</tr>
+
+<tr><td>NVDA</td><td>86</td></tr>
+<tr><td>AVGO</td><td>84</td></tr>
+<tr><td>PLTR</td><td>82</td></tr>
+<tr><td>MU</td><td>80</td></tr>
+<tr><td>DELL</td><td>78</td></tr>
+</table>
+
 </div>
 
 <div class="panel" style="margin-top:15px;">
@@ -162,7 +144,6 @@ src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:NVDA&interval=15&theme
 <h2>Portfolio Tracker</h2>
 
 <table>
-
 <tr>
 <th>Symbol</th>
 <th>Shares</th>
@@ -182,7 +163,6 @@ src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:NVDA&interval=15&theme
 <td>PLTR</td>
 <td>50</td>
 </tr>
-
 </table>
 
 </div>
@@ -195,51 +175,63 @@ src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:NVDA&interval=15&theme
 
 function changeSymbol(symbol){
 
-document.getElementById("chartTitle").innerText =
-symbol + " Chart";
+    document.getElementById("chartTitle").innerText =
+    symbol + " Chart";
 
-document.getElementById("tvframe").src =
-`https://s.tradingview.com/widgetembed/?symbol=NASDAQ:${symbol}&interval=15&theme=dark`;
+    document.getElementById("tvframe").src =
+    `https://s.tradingview.com/widgetembed/?symbol=NASDAQ:${symbol}&interval=15&theme=dark`;
 
-generateSignal(symbol);
-
+    generateSignal(symbol);
 }
 
 function generateSignal(symbol){
 
-let signals = {
+    const setups = {
 
-NVDA:["BUY","82%","Bullish"],
-AVGO:["BUY","80%","Bullish"],
-MU:["BUY","77%","Bullish"],
-IBM:["WATCH","63%","Neutral"],
-DELL:["BUY","75%","Bullish"],
-PLTR:["BUY","84%","Bullish"],
-TSLA:["WATCH","60%","Volatile"],
-MSFT:["BUY","78%","Bullish"],
-RKLB:["WATCH","58%","Speculative"],
-ASTS:["WATCH","55%","Speculative"]
+        NVDA:{signal:"BUY",score:86,trend:"Bullish",entry:"210-214",stop:"205",target1:"225",target2:"235"},
+        AVGO:{signal:"BUY",score:84,trend:"Bullish",entry:"444-446",stop:"438",target1:"455",target2:"462"},
+        MU:{signal:"BUY",score:80,trend:"Bullish",entry:"131-133",stop:"127",target1:"138",target2:"142"},
+        DELL:{signal:"BUY",score:78,trend:"Bullish",entry:"120-122",stop:"116",target1:"128",target2:"132"},
+        PLTR:{signal:"BUY",score:82,trend:"Bullish",entry:"124-126",stop:"119",target1:"132",target2:"138"},
+        MSFT:{signal:"BUY",score:78,trend:"Bullish",entry:"445-447",stop:"440",target1:"460",target2:"470"},
+        IBM:{signal:"WATCH",score:66,trend:"Neutral",entry:"Wait",stop:"N/A",target1:"N/A",target2:"N/A"},
+        TSLA:{signal:"WATCH",score:62,trend:"Volatile",entry:"Wait",stop:"N/A",target1:"N/A",target2:"N/A"},
+        RKLB:{signal:"WATCH",score:58,trend:"Speculative",entry:"Wait",stop:"N/A",target1:"N/A",target2:"N/A"},
+        ASTS:{signal:"WATCH",score:55,trend:"Speculative",entry:"Wait",stop:"N/A",target1:"N/A",target2:"N/A"}
 
-};
+    };
 
-let s = signals[symbol];
+    const s = setups[symbol];
 
-let color = "signal-watch";
+    let color = "signal-watch";
 
-if(s[0] === "BUY") color = "signal-buy";
-if(s[0] === "SELL") color = "signal-sell";
+    if(s.signal === "BUY") color = "signal-buy";
+    if(s.signal === "SELL") color = "signal-sell";
 
-document.getElementById("signalArea").innerHTML = `
-<p><b>Symbol:</b> ${symbol}</p>
-<p class="${color}">${s[0]}</p>
-<p>Confidence: ${s[1]}</p>
-<p>Trend: ${s[2]}</p>
-<p>Entry Zone: Manual Review Required</p>
-<p>Stop Loss: Manual Review Required</p>
-<p>Target: Manual Review Required</p>
-`;
+    document.getElementById("signalArea").innerHTML = `
 
+    <h3>${symbol}</h3>
+
+    <p class="${color}">
+    ${s.signal}
+    </p>
+
+    <p><b>Score:</b> ${s.score}/100</p>
+
+    <p><b>Trend:</b> ${s.trend}</p>
+
+    <p><b>Entry Zone:</b> ${s.entry}</p>
+
+    <p><b>Stop Loss:</b> ${s.stop}</p>
+
+    <p><b>Target 1:</b> ${s.target1}</p>
+
+    <p><b>Target 2:</b> ${s.target2}</p>
+
+    `;
 }
+
+generateSignal("NVDA");
 
 </script>
 
