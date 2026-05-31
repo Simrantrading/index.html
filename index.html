@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Trading Dashboard</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#08111f;
+    color:white;
+}
+
+.header{
+    padding:20px;
+    background:#0d1b2a;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.container{
+    display:grid;
+    grid-template-columns:300px 1fr;
+    gap:15px;
+    padding:15px;
+}
+
+.panel{
+    background:#10233d;
+    border-radius:12px;
+    padding:15px;
+}
+
+.watchlist-item{
+    padding:10px;
+    margin:5px 0;
+    background:#183252;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.watchlist-item:hover{
+    background:#22446f;
+}
+
+.signal-buy{
+    color:#00ff88;
+    font-weight:bold;
+}
+
+.signal-watch{
+    color:#ffcc00;
+    font-weight:bold;
+}
+
+.signal-sell{
+    color:#ff5555;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+td,th{
+    padding:10px;
+    border-bottom:1px solid #233b58;
+}
+
+iframe{
+    width:100%;
+    height:600px;
+    border:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+🚀 AI Trading Dashboard
+</div>
+
+<div class="container">
+
+<div class="panel">
+
+<h2>Watchlist</h2>
+
+<div class="watchlist-item" onclick="changeSymbol('NVDA')">NVDA</div>
+<div class="watchlist-item" onclick="changeSymbol('AVGO')">AVGO</div>
+<div class="watchlist-item" onclick="changeSymbol('MU')">MU</div>
+<div class="watchlist-item" onclick="changeSymbol('IBM')">IBM</div>
+<div class="watchlist-item" onclick="changeSymbol('DELL')">DELL</div>
+<div class="watchlist-item" onclick="changeSymbol('PLTR')">PLTR</div>
+<div class="watchlist-item" onclick="changeSymbol('TSLA')">TSLA</div>
+<div class="watchlist-item" onclick="changeSymbol('MSFT')">MSFT</div>
+<div class="watchlist-item" onclick="changeSymbol('RKLB')">RKLB</div>
+<div class="watchlist-item" onclick="changeSymbol('ASTS')">ASTS</div>
+
+<h2 style="margin-top:30px;">AI Signal</h2>
+
+<div id="signalArea">
+
+<p><b>Symbol:</b> NVDA</p>
+
+<p class="signal-buy">
+BUY
+</p>
+
+<p>
+Confidence: 78%
+</p>
+
+<p>
+Trend: Bullish
+</p>
+
+<p>
+Entry Zone:
+$140 - $145
+</p>
+
+<p>
+Stop Loss:
+$135
+</p>
+
+<p>
+Target:
+$155
+</p>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="panel">
+
+<h2 id="chartTitle">
+NVDA Chart
+</h2>
+
+<div id="chartContainer">
+
+<iframe
+id="tvframe"
+src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:NVDA&interval=15&theme=dark">
+</iframe>
+
+</div>
+
+</div>
+
+<div class="panel" style="margin-top:15px;">
+
+<h2>Portfolio Tracker</h2>
+
+<table>
+
+<tr>
+<th>Symbol</th>
+<th>Shares</th>
+</tr>
+
+<tr>
+<td>NVDA</td>
+<td>10</td>
+</tr>
+
+<tr>
+<td>AVGO</td>
+<td>5</td>
+</tr>
+
+<tr>
+<td>PLTR</td>
+<td>50</td>
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function changeSymbol(symbol){
+
+document.getElementById("chartTitle").innerText =
+symbol + " Chart";
+
+document.getElementById("tvframe").src =
+`https://s.tradingview.com/widgetembed/?symbol=NASDAQ:${symbol}&interval=15&theme=dark`;
+
+generateSignal(symbol);
+
+}
+
+function generateSignal(symbol){
+
+let signals = {
+
+NVDA:["BUY","82%","Bullish"],
+AVGO:["BUY","80%","Bullish"],
+MU:["BUY","77%","Bullish"],
+IBM:["WATCH","63%","Neutral"],
+DELL:["BUY","75%","Bullish"],
+PLTR:["BUY","84%","Bullish"],
+TSLA:["WATCH","60%","Volatile"],
+MSFT:["BUY","78%","Bullish"],
+RKLB:["WATCH","58%","Speculative"],
+ASTS:["WATCH","55%","Speculative"]
+
+};
+
+let s = signals[symbol];
+
+let color = "signal-watch";
+
+if(s[0] === "BUY") color = "signal-buy";
+if(s[0] === "SELL") color = "signal-sell";
+
+document.getElementById("signalArea").innerHTML = `
+<p><b>Symbol:</b> ${symbol}</p>
+<p class="${color}">${s[0]}</p>
+<p>Confidence: ${s[1]}</p>
+<p>Trend: ${s[2]}</p>
+<p>Entry Zone: Manual Review Required</p>
+<p>Stop Loss: Manual Review Required</p>
+<p>Target: Manual Review Required</p>
+`;
+
+}
+
+</script>
+
+</body>
+</html>
