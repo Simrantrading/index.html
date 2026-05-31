@@ -3,95 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Trading Dashboard</title>
-
+<title>AI Trading Dashboard V4</title>
 <style>
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#08111f;
-    color:white;
-}
-
-.header{
-    padding:20px;
-    background:#0d1b2a;
-    font-size:28px;
-    font-weight:bold;
-}
-
-.container{
-    display:grid;
-    grid-template-columns:300px 1fr;
-    gap:15px;
-    padding:15px;
-}
-
-.panel{
-    background:#10233d;
-    border-radius:12px;
-    padding:15px;
-}
-
-.watchlist-item{
-    padding:10px;
-    margin:5px 0;
-    background:#183252;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-.watchlist-item:hover{
-    background:#22446f;
-}
-
-.signal-buy{
-    color:#00ff88;
-    font-weight:bold;
-}
-
-.signal-watch{
-    color:#ffcc00;
-    font-weight:bold;
-}
-
-.signal-sell{
-    color:#ff5555;
-    font-weight:bold;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-td,th{
-    padding:10px;
-    border-bottom:1px solid #233b58;
-}
-
-iframe{
-    width:100%;
-    height:600px;
-    border:none;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#08111f;color:white}
+.header{padding:20px;background:#0d1b2a;font-size:28px;font-weight:bold}
+.container{display:grid;grid-template-columns:300px 1fr;gap:15px;padding:15px}
+.panel{background:#10233d;border-radius:12px;padding:15px}
+.watchlist-item{padding:10px;margin:5px 0;background:#183252;border-radius:8px;cursor:pointer}
+.watchlist-item:hover{background:#22446f}
+.signal-buy{color:#00ff88;font-weight:bold}
+.signal-watch{color:#ffcc00;font-weight:bold}
+.signal-sell{color:#ff5555;font-weight:bold}
+table{width:100%;border-collapse:collapse}
+td,th{padding:10px;border-bottom:1px solid #233b58}
+iframe{width:100%;height:600px;border:none}
+ul{padding-left:20px}
 </style>
 </head>
-
 <body>
 
-<div class="header">
-🚀 AI Trading Dashboard
-</div>
+<div class="header">🚀 AI Trading Dashboard V4</div>
 
 <div class="container">
 
 <div class="panel">
-
 <h2>Watchlist</h2>
-
 <div class="watchlist-item" onclick="changeSymbol('NVDA')">NVDA</div>
 <div class="watchlist-item" onclick="changeSymbol('AVGO')">AVGO</div>
+<div class="watchlist-item" onclick="changeSymbol('AMD')">AMD</div>
 <div class="watchlist-item" onclick="changeSymbol('MU')">MU</div>
 <div class="watchlist-item" onclick="changeSymbol('IBM')">IBM</div>
 <div class="watchlist-item" onclick="changeSymbol('DELL')">DELL</div>
@@ -102,138 +41,108 @@ iframe{
 <div class="watchlist-item" onclick="changeSymbol('ASTS')">ASTS</div>
 
 <h2 style="margin-top:30px;">AI Signal</h2>
-
 <div id="signalArea"></div>
-
 </div>
 
 <div>
 
+<div class="panel" style="margin-bottom:15px;">
+<h2>⭐ Today's Best Setup</h2>
+<p><b>Stock:</b> NVDA</p>
+<p><b>Signal:</b> BUY</p>
+<p><b>Score:</b> 86/100</p>
+<p><b>Reason:</b> AI leadership, strong momentum and volume.</p>
+</div>
+
 <div class="panel">
-
 <h2 id="chartTitle">NVDA Chart</h2>
-
-<iframe
-id="tvframe"
-src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:NVDA&interval=15&theme=dark">
-</iframe>
-
+<iframe id="tvframe" src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:NVDA&interval=15&theme=dark"></iframe>
 </div>
 
 <div class="panel" style="margin-top:15px;">
-
 <h2>Top Opportunities</h2>
-
 <table>
-<tr>
-<th>Stock</th>
-<th>Score</th>
-</tr>
-
+<tr><th>Stock</th><th>Score</th></tr>
 <tr><td>NVDA</td><td>86</td></tr>
 <tr><td>AVGO</td><td>84</td></tr>
+<tr><td>AMD</td><td>83</td></tr>
 <tr><td>PLTR</td><td>82</td></tr>
 <tr><td>MU</td><td>80</td></tr>
-<tr><td>DELL</td><td>78</td></tr>
 </table>
-
 </div>
 
 <div class="panel" style="margin-top:15px;">
-
-<h2>Portfolio Tracker</h2>
-
+<h2>🔥 Market Movers</h2>
 <table>
-<tr>
-<th>Symbol</th>
-<th>Shares</th>
-</tr>
-
-<tr>
-<td>NVDA</td>
-<td>10</td>
-</tr>
-
-<tr>
-<td>AVGO</td>
-<td>5</td>
-</tr>
-
-<tr>
-<td>PLTR</td>
-<td>50</td>
-</tr>
+<tr><th>Ticker</th><th>Move</th></tr>
+<tr><td>PLTR</td><td>+8.4%</td></tr>
+<tr><td>MU</td><td>+6.9%</td></tr>
+<tr><td>RKLB</td><td>+5.5%</td></tr>
+<tr><td>ASTS</td><td>+4.8%</td></tr>
 </table>
+</div>
 
+<div class="panel" style="margin-top:15px;">
+<h2>📰 Breaking News</h2>
+<ul>
+<li>NVDA - AI demand remains strong</li>
+<li>AVGO - Data center growth continues</li>
+<li>MU - Memory pricing improving</li>
+<li>PLTR - Government contract focus</li>
+</ul>
+</div>
+
+<div class="panel" style="margin-top:15px;">
+<h2>Portfolio Tracker</h2>
+<table>
+<tr><th>Symbol</th><th>Shares</th></tr>
+<tr><td>NVDA</td><td>10</td></tr>
+<tr><td>AVGO</td><td>5</td></tr>
+<tr><td>PLTR</td><td>50</td></tr>
+</table>
 </div>
 
 </div>
-
 </div>
 
 <script>
-
 function changeSymbol(symbol){
-
-    document.getElementById("chartTitle").innerText =
-    symbol + " Chart";
-
-    document.getElementById("tvframe").src =
-    `https://s.tradingview.com/widgetembed/?symbol=NASDAQ:${symbol}&interval=15&theme=dark`;
-
-    generateSignal(symbol);
+document.getElementById("chartTitle").innerText=symbol+" Chart";
+document.getElementById("tvframe").src=`https://s.tradingview.com/widgetembed/?symbol=NASDAQ:${symbol}&interval=15&theme=dark`;
+generateSignal(symbol);
 }
 
 function generateSignal(symbol){
+const setups={
+NVDA:{signal:"BUY",score:86,trend:"Bullish",entry:"210-214",stop:"205",target1:"225",target2:"235"},
+AVGO:{signal:"BUY",score:84,trend:"Bullish",entry:"444-446",stop:"438",target1:"455",target2:"462"},
+AMD:{signal:"BUY",score:83,trend:"Bullish",entry:"118-120",stop:"114",target1:"126",target2:"130"},
+MU:{signal:"BUY",score:80,trend:"Bullish",entry:"131-133",stop:"127",target1:"138",target2:"142"},
+DELL:{signal:"BUY",score:78,trend:"Bullish",entry:"120-122",stop:"116",target1:"128",target2:"132"},
+PLTR:{signal:"BUY",score:82,trend:"Bullish",entry:"124-126",stop:"119",target1:"132",target2:"138"},
+MSFT:{signal:"BUY",score:78,trend:"Bullish",entry:"445-447",stop:"440",target1:"460",target2:"470"},
+IBM:{signal:"WATCH",score:66,trend:"Neutral",entry:"Wait",stop:"N/A",target1:"N/A",target2:"N/A"},
+TSLA:{signal:"WATCH",score:62,trend:"Volatile",entry:"Wait",stop:"N/A",target1:"N/A",target2:"N/A"},
+RKLB:{signal:"WATCH",score:58,trend:"Speculative",entry:"Wait",stop:"N/A",target1:"N/A",target2:"N/A"},
+ASTS:{signal:"WATCH",score:55,trend:"Speculative",entry:"Wait",stop:"N/A",target1:"N/A",target2:"N/A"}
+};
 
-    const setups = {
+const s=setups[symbol];
+let color="signal-watch";
+if(s.signal==="BUY") color="signal-buy";
+if(s.signal==="SELL") color="signal-sell";
 
-        NVDA:{signal:"BUY",score:86,trend:"Bullish",entry:"210-214",stop:"205",target1:"225",target2:"235"},
-        AVGO:{signal:"BUY",score:84,trend:"Bullish",entry:"444-446",stop:"438",target1:"455",target2:"462"},
-        MU:{signal:"BUY",score:80,trend:"Bullish",entry:"131-133",stop:"127",target1:"138",target2:"142"},
-        DELL:{signal:"BUY",score:78,trend:"Bullish",entry:"120-122",stop:"116",target1:"128",target2:"132"},
-        PLTR:{signal:"BUY",score:82,trend:"Bullish",entry:"124-126",stop:"119",target1:"132",target2:"138"},
-        MSFT:{signal:"BUY",score:78,trend:"Bullish",entry:"445-447",stop:"440",target1:"460",target2:"470"},
-        IBM:{signal:"WATCH",score:66,trend:"Neutral",entry:"Wait",stop:"N/A",target1:"N/A",target2:"N/A"},
-        TSLA:{signal:"WATCH",score:62,trend:"Volatile",entry:"Wait",stop:"N/A",target1:"N/A",target2:"N/A"},
-        RKLB:{signal:"WATCH",score:58,trend:"Speculative",entry:"Wait",stop:"N/A",target1:"N/A",target2:"N/A"},
-        ASTS:{signal:"WATCH",score:55,trend:"Speculative",entry:"Wait",stop:"N/A",target1:"N/A",target2:"N/A"}
-
-    };
-
-    const s = setups[symbol];
-
-    let color = "signal-watch";
-
-    if(s.signal === "BUY") color = "signal-buy";
-    if(s.signal === "SELL") color = "signal-sell";
-
-    document.getElementById("signalArea").innerHTML = `
-
-    <h3>${symbol}</h3>
-
-    <p class="${color}">
-    ${s.signal}
-    </p>
-
-    <p><b>Score:</b> ${s.score}/100</p>
-
-    <p><b>Trend:</b> ${s.trend}</p>
-
-    <p><b>Entry Zone:</b> ${s.entry}</p>
-
-    <p><b>Stop Loss:</b> ${s.stop}</p>
-
-    <p><b>Target 1:</b> ${s.target1}</p>
-
-    <p><b>Target 2:</b> ${s.target2}</p>
-
-    `;
+document.getElementById("signalArea").innerHTML=`
+<h3>${symbol}</h3>
+<p class="${color}">${s.signal}</p>
+<p><b>Score:</b> ${s.score}/100</p>
+<p><b>Trend:</b> ${s.trend}</p>
+<p><b>Entry Zone:</b> ${s.entry}</p>
+<p><b>Stop Loss:</b> ${s.stop}</p>
+<p><b>Target 1:</b> ${s.target1}</p>
+<p><b>Target 2:</b> ${s.target2}</p>`;
 }
-
 generateSignal("NVDA");
-
 </script>
-
 </body>
 </html>
