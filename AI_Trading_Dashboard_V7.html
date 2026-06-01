@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Trading Dashboard V7</title>
+<style>
+body{margin:0;font-family:Arial;background:#08111f;color:white}
+.header{padding:20px;background:#0d1b2a;font-size:28px;font-weight:bold}
+.container{display:grid;grid-template-columns:300px 1fr;gap:15px;padding:15px}
+.panel{background:#10233d;border-radius:12px;padding:15px;margin-bottom:15px}
+.watchlist-item{padding:10px;margin:5px 0;background:#183252;border-radius:8px;cursor:pointer}
+.watchlist-item:hover{background:#22446f}
+table{width:100%;border-collapse:collapse}
+td,th{padding:8px;border-bottom:1px solid #233b58}
+iframe{width:100%;height:550px;border:none}
+.buy{color:#00ff88}
+</style>
+</head>
+<body>
+
+<div class="header">🚀 AI Trading Dashboard V7</div>
+
+<div class="container">
+<div>
+<div class="panel">
+<h2>📊 Market Status</h2>
+<div id="marketStatus">Loading...</div>
+</div>
+
+<div class="panel">
+<h2>💰 Live Quotes</h2>
+<div id="quotes">Add Finnhub key and deploy</div>
+</div>
+
+<div class="panel">
+<h2>Watchlist</h2>
+<div class="watchlist-item" onclick="changeSymbol('NVDA')">NVDA</div>
+<div class="watchlist-item" onclick="changeSymbol('AVGO')">AVGO</div>
+<div class="watchlist-item" onclick="changeSymbol('AMD')">AMD</div>
+<div class="watchlist-item" onclick="changeSymbol('MU')">MU</div>
+<div class="watchlist-item" onclick="changeSymbol('PLTR')">PLTR</div>
+<div class="watchlist-item" onclick="changeSymbol('MSFT')">MSFT</div>
+<div class="watchlist-item" onclick="changeSymbol('RKLB')">RKLB</div>
+<div class="watchlist-item" onclick="changeSymbol('ASTS')">ASTS</div>
+</div>
+
+<div class="panel">
+<h2>🤖 AI Signal</h2>
+<div id="signalArea"></div>
+</div>
+</div>
+
+<div>
+<div class="panel">
+<h2>⭐ Opportunity Rankings</h2>
+<table>
+<tr><th>Stock</th><th>Score</th></tr>
+<tr><td>NVDA</td><td>86</td></tr>
+<tr><td>AVGO</td><td>84</td></tr>
+<tr><td>AMD</td><td>83</td></tr>
+<tr><td>PLTR</td><td>82</td></tr>
+<tr><td>MU</td><td>80</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2 id="chartTitle">NVDA Chart</h2>
+<iframe id="tvframe" src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:NVDA&interval=5&theme=dark"></iframe>
+</div>
+
+<div class="panel">
+<h2>📰 Live Market News</h2>
+<div id="newsFeed">Replace YOUR_FINNHUB_KEY below.</div>
+</div>
+
+<div class="panel">
+<h2>💎 Hidden Gems</h2>
+<p>RKLB • ASTS • KTOS • VRT • AVAV • LUNR</p>
+</div>
+
+<div class="panel">
+<h2>🌍 Global Catalysts</h2>
+<p>US-Iran • Oil • AI Spending • Defense • Earnings</p>
+</div>
+</div>
+</div>
+
+<script>
+const FINNHUB_API_KEY = "d8ee369r01qth3cgtb90d8ee369r01qth3cgtb9g";
+
+function changeSymbol(symbol){
+ document.getElementById('chartTitle').innerText=symbol+' Chart';
+ document.getElementById('tvframe').src=`https://s.tradingview.com/widgetembed/?symbol=NASDAQ:${symbol}&interval=5&theme=dark`;
+ generateSignal(symbol);
+}
+
+function generateSignal(symbol){
+ const scores={NVDA:86,AVGO:84,AMD:83,MU:80,PLTR:82,MSFT:78,RKLB:58,ASTS:55};
+ document.getElementById('signalArea').innerHTML=
+ `<p><b>${symbol}</b></p><p class="buy">BUY/WATCH</p><p>Score: ${scores[symbol]||0}/100</p>`;
+}
+
+async function loadNews(){
+ if(FINNHUB_API_KEY==="YOUR_FINNHUB_KEY") return;
+ try{
+  const r=await fetch(`https://finnhub.io/api/v1/news?category=general&token=${FINNHUB_API_KEY}`);
+  const d=await r.json();
+  let h="<ul>";
+  d.slice(0,8).forEach(n=>h+=`<li><a href="${n.url}" target="_blank" style="color:white">${n.headline}</a></li>`);
+  h+="</ul>";
+  document.getElementById("newsFeed").innerHTML=h;
+ }catch(e){}
+}
+
+generateSignal('NVDA');
+document.getElementById('marketStatus').innerText='Dashboard Active';
+loadNews();
+setInterval(loadNews,60000);
+</script>
+</body>
+</html>
