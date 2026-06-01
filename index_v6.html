@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Trading Dashboard V6</title>
+<style>
+body{margin:0;font-family:Arial;background:#08111f;color:white}
+.header{padding:20px;background:#0d1b2a;font-size:28px;font-weight:bold}
+.container{display:grid;grid-template-columns:300px 1fr;gap:15px;padding:15px}
+.panel{background:#10233d;border-radius:12px;padding:15px;margin-bottom:15px}
+.watchlist-item{padding:10px;margin:5px 0;background:#183252;border-radius:8px;cursor:pointer}
+.watchlist-item:hover{background:#22446f}
+.signal-buy{color:#00ff88;font-weight:bold}
+.signal-watch{color:#ffcc00;font-weight:bold}
+table{width:100%;border-collapse:collapse}
+td,th{padding:8px;border-bottom:1px solid #233b58}
+iframe{width:100%;height:550px;border:none}
+</style>
+</head>
+<body>
+
+<div class="header">🚀 AI Trading Dashboard V6</div>
+
+<div class="container">
+
+<div>
+
+<div class="panel">
+<h2>📊 Market Status</h2>
+<p>Ready for live API integration</p>
+</div>
+
+<div class="panel">
+<h2>Watchlist</h2>
+<div class="watchlist-item" onclick="changeSymbol('NVDA')">NVDA</div>
+<div class="watchlist-item" onclick="changeSymbol('AVGO')">AVGO</div>
+<div class="watchlist-item" onclick="changeSymbol('AMD')">AMD</div>
+<div class="watchlist-item" onclick="changeSymbol('MU')">MU</div>
+<div class="watchlist-item" onclick="changeSymbol('PLTR')">PLTR</div>
+<div class="watchlist-item" onclick="changeSymbol('MSFT')">MSFT</div>
+<div class="watchlist-item" onclick="changeSymbol('TSLA')">TSLA</div>
+<div class="watchlist-item" onclick="changeSymbol('RKLB')">RKLB</div>
+<div class="watchlist-item" onclick="changeSymbol('ASTS')">ASTS</div>
+</div>
+
+<div class="panel">
+<h2>🤖 AI Signal</h2>
+<div id="signalArea"></div>
+</div>
+
+</div>
+
+<div>
+
+<div class="panel">
+<h2>⭐ Today's Best Setup</h2>
+<p><b>Stock:</b> NVDA</p>
+<p><b>Signal:</b> BUY</p>
+<p><b>Score:</b> 86/100</p>
+</div>
+
+<div class="panel">
+<h2 id="chartTitle">NVDA Chart</h2>
+<iframe id="tvframe" src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:NVDA&interval=5&theme=dark"></iframe>
+</div>
+
+<div class="panel">
+<h2>🌅 Pre-Market Movers</h2>
+<table>
+<tr><th>Stock</th><th>Comment</th></tr>
+<tr><td>NVDA</td><td>Watch AI news</td></tr>
+<tr><td>PLTR</td><td>Contract headlines</td></tr>
+<tr><td>AMD</td><td>Semiconductor strength</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2>🌙 After-Hours Watch</h2>
+<table>
+<tr><th>Stock</th><th>Focus</th></tr>
+<tr><td>AVGO</td><td>Earnings reaction</td></tr>
+<tr><td>MU</td><td>Memory pricing news</td></tr>
+<tr><td>DELL</td><td>AI server demand</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2>🌍 Global Markets</h2>
+<ul>
+<li>US Futures</li>
+<li>Oil</li>
+<li>Gold</li>
+<li>US Dollar</li>
+<li>Middle East Headlines</li>
+<li>China Market News</li>
+</ul>
+</div>
+
+<div class="panel">
+<h2>🌍 Global Catalysts</h2>
+<ul>
+<li>US-Iran developments</li>
+<li>Oil volatility</li>
+<li>Defense spending</li>
+<li>AI infrastructure growth</li>
+</ul>
+</div>
+
+<div class="panel">
+<h2>💎 Hidden Gems Scanner</h2>
+<table>
+<tr><th>Ticker</th><th>Theme</th></tr>
+<tr><td>RKLB</td><td>Space</td></tr>
+<tr><td>ASTS</td><td>Satellite</td></tr>
+<tr><td>KTOS</td><td>Defense Tech</td></tr>
+<tr><td>VRT</td><td>Data Centers</td></tr>
+</table>
+</div>
+
+</div>
+</div>
+
+<script>
+function changeSymbol(symbol){
+document.getElementById('chartTitle').innerText=symbol+' Chart';
+document.getElementById('tvframe').src=`https://s.tradingview.com/widgetembed/?symbol=NASDAQ:${symbol}&interval=5&theme=dark`;
+generateSignal(symbol);
+}
+
+function generateSignal(symbol){
+const data={
+NVDA:['BUY',86],AVGO:['BUY',84],AMD:['BUY',83],
+MU:['BUY',80],PLTR:['BUY',82],MSFT:['BUY',78],
+TSLA:['WATCH',62],RKLB:['WATCH',58],ASTS:['WATCH',55]
+};
+let s=data[symbol];
+document.getElementById('signalArea').innerHTML=`
+<p><b>${symbol}</b></p>
+<p>${s[0]}</p>
+<p>Score: ${s[1]}/100</p>`;
+}
+generateSignal('NVDA');
+</script>
+
+</body>
+</html>
